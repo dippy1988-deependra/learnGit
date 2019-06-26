@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/2.7.0/fabric.min.js"></script>
+    <script src="fileSaver.js"></script>
+</head>
+<body>
+        <!-- <canvas id="c" width="500" height="500" style="border:1px solid"></canvas> -->
+    <div class="container" style="margin-top:10px;">
+        <div class="row">
+            <div class="col-md-3" style="height: 94vh;overflow-x: hidden;overflow-y: scroll">
+                <h4><center>Elements</center></h4>
+                <div class="col-md-12 text-wrap">
+                    <i class="fas fa-text-width icon-size" id="text"></i>
+                    <p>Text</p>
+                </div>
+                <div class="col-md-12 text-wrap">
+                    <i class="fas fa-trash icon-size" id="remove"></i>
+                    <p>Remove</p>
+                </div>
+                <div class="col-md-12 text-wrap">
+                    <i class="fas fa-search-plus icon-size" id="zoomin"></i>
+                    <i class="fas fa-search-minus icon-size" id="zoomout"></i>
+                    <p>Zoom In / Out</p>
+                </div>
+                <div class="col-md-12 text-wrap">
+                    <i class="fas fa-image icon-size"  onclick="showdiv()"></i>
+                    <p>Clipart</p>
+                </div>
+                <div class="col-md-12 text-wrap">
+                    <i class="fas fa-image icon-size" id="photo">
+                        <label for="upload-photo">Photos</label>
+                        <input type="file" name="photo" id="upload-photo" />
+                    </i>
+                </div>
+                <div class="col-md-12 text-wrap">
+                    <i class="fas fa-clone icon-size" id="copy" onclick="duplicateObj()"></i>
+                    <p>Copy</p>
+                </div>
+                <div class="col-md-12 text-wrap">
+                    <label for="font-control">Background</label>
+                    <input type="color" name="" id="color">
+                </div>
+                <div class="col-md-12 text-wrap">
+                    <p id="textbox">Textbox</p>
+                </div>
+                <div class="col-md-12 text-wrap">
+                    <p id="buttons" onclick="draw_square();">Buttons</p>
+                </div>
+                <div class="col-md-12 text-wrap">
+                    <p id="buttons" onclick="draw_rect();">Blank Buttons</p>
+                </div>
+                <div class="col-md-12 text-wrap">
+                    <p id="lines">Horizental Line</p>
+                </div>
+                
+
+            </div>
+                
+            <div class="col-md-6" style="overflow-x:scroll;overflow-y:scroll">
+                <canvas id="c" width="540" height="600"></canvas>
+            </div>
+
+            <!-- FONT SIZE -->
+            <div class="col-md-3" style="height: 94vh;overflow-x: hidden;overflow-y: scroll">
+                <h4><center>Styles</center></h4>
+                <hr>
+                <div class="col-md-12">
+                    <center>Text Styles</center>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-5">
+                            <label for="">Font Size</label>
+                    </div>
+                    <div class="col-sm-5">
+                            <input type="range" min="1" max="100" value="50" class="slider" id="slider">
+                    </div>
+                    <div class="col-sm-2">
+                        <p id="value"></p>
+                    </div>
+                </div>
+                <hr>
+
+                <!-- FONT FAMILY -->
+                <div class="col-md-12">
+                    <label for="font-control">Font family:</label>
+                    <select id="font-control" name="font-control">
+                        <option value="Arial">Arial</option>
+                        <option value="Times New Roman">Times</option>
+                    </select>
+                </div>
+                <hr>
+                <!-- TEXT ALIGNMENT -->
+                <div class="col-md-12">
+                    <label for="font-control">Alignment</label>
+                    <select id="font-control-alignment" name="font-control">
+                        <option value="left">left</option>
+                        <option value="center">center</option>
+                        <option value="right">right</option>
+                        <option value="justify">justify</option>
+                    </select>
+                </div>
+                <hr>
+                <div class="col-md-12">
+                        <label for="font-control">Change Text color</label>
+                    <input type="color" name="" id="textColor">
+                </div>
+                <hr>
+                <div class="col-md-12">
+                        <label for="font-control">Opacity</label>
+                        <select id="opacity" name="font-control">
+                            <option value="0">0</option>
+                            <option value="0.1">0.1</option>
+                            <option value="0.2">0.2</option>
+                            <option value="0.3">0.3</option>
+                            <option value="0.4">0.4</option>
+                            <option value="0.5">0.5</option>
+                            <option value="0.6">0.6</option>
+                            <option value="0.7">0.7</option>
+                            <option value="0.8">0.8</option>
+                            <option value="0.9">0.9</option>
+                            <option value="1">1</option>
+                        </select>
+                    </div>
+                    <hr>
+                    <div class="col-md-12">
+                        <label for="font-control">Text background</label>
+                        <input type="color" name="" id="bgColor">
+                    </div> 
+                    <hr>
+                    <div class="col-md-12">
+                        <label for="font-control">clip background</label>
+                        <input type="color" name="" id="clipbgcolor">
+                    </div> 
+                    <hr>
+                    <div class="col-md-12">
+                        <label for="font-control">Font weight</label>
+                        <select id="fontWeight" name="font-control">
+                            <option value="100">100</option>
+                            <option value="200">200</option>
+                            <option value="300">300</option>
+                            <option value="400">400</option>
+                            <option value="500">500</option>
+                            <option value="600">600</option>
+                            <option value="700">700</option>
+                            <option value="800">800</option>
+                        </select>
+                    </div>
+                    <hr>
+                    <div class="col-md-12">
+                        <label for="font-control">Font Style</label>
+                        <select id="fontstyle" name="font-control">
+                            <option value="italic">italic</option>
+                            <option value="oblique">oblique</option>
+                            <option value="normal" selected>normal</option>
+                        </select>
+                    </div>
+                    <hr>
+                    <div class="col-md-12">
+                        <center>Button Styles</center>
+                    </div>
+                    <hr>
+                    <div class="col-md-12">
+                        <label for="font-control">Change button color</label>
+                        <input type="color" name="" id="btnColor">
+                        
+                    </div>
+                    <hr>
+                    <div class="col-md-12">
+                        <label for="font-control">Change button Radius X & Y</label>
+                        <select id="xRadius" name="font-control">
+                            <option value="1" selected>1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                        </select>
+                        <select id="yRadius" name="font-control">
+                            <option value="1" selected>1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                        </select>
+                        
+                    </div>
+                    <hr>
+                    <div class="col-md-12">
+                        <label for="font-control">Change button Stroke Color</label>
+                        <input type="color" name="" id="btnStroke">
+                    </div>
+                    <hr>
+                    <div class="col-md-12">
+                        <label for="font-control">Change button Stroke Width</label>
+                        <select id="btnStrokeWidth" name="font-control">
+                            <option value="1" selected>1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                        </select>
+                    </div>
+                    <hr>
+                    <div class="col-md-12">
+                        <label for="font-control">Change Line Stroke</label>
+                        <input type="color" name="" id="lineStroke">
+                    </div>
+                    <hr>
+                    <div class="col-md-12">
+                        <label for="font-control">Save canvas</label>
+                        <input type="button" value="Save"  id="saveCanvas">
+                    </div>
+                    <hr>
+                    <div class="col-md-12">
+                        <p id="addCircle">Add Circle</p>
+                    </div>
+                    
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- CLIPART WRAPPER -->
+    <div class="clipart-wrapper animated  slideInUp fast" id="clipArt" >
+        <div class="container-fluid" style="overflow: scroll;height: 93vh;">
+            <div class="row">
+                <div class="col-md-12">
+                    <button class="btn btn-primary float-right" id="closeClipart" onclick="closeDiv()">Close</button>
+                </div>
+                <hr>
+                <div class="col-md-12">
+                    <ul>
+                        <li>
+                            <div class="thumb">
+                               <img src="https://d1csarkz8obe9u.cloudfront.net/shapes/line.png" alt="">
+                            </div>
+                        </li>
+                        <li>
+                            <div class="thumb">
+                                <img src="https://d1csarkz8obe9u.cloudfront.net/shapes/square.png" alt="">
+                            </div>
+                        </li>
+                        <li>
+                            <div class="thumb">
+                                <img src="https://d1csarkz8obe9u.cloudfront.net/shapes/circle.png" alt="">
+                            </div>
+                        </li>
+                        <li>
+                            <div class="thumb">
+                                <img src="https://d1csarkz8obe9u.cloudfront.net/shapes/triangle.png" alt="">
+                            </div>
+                        </li>
+                        <li>
+                            <div class="thumb">
+                                <img src="https://d1csarkz8obe9u.cloudfront.net/shapes/triangle1.png" alt="">
+                            </div>
+                        </li>
+                        <li>
+                            <div class="thumb">
+                                <img src="https://d1csarkz8obe9u.cloudfront.net/shapes/triangle2.png" alt="">
+                            </div>
+                        </li>
+                        <li>
+                            <div class="thumb">
+                                <img src="https://d1csarkz8obe9u.cloudfront.net/shapes/hexagon.png" alt="">
+                            </div>
+                        </li>
+                        <li>
+                            <div class="thumb">
+                                <img src="https://d1csarkz8obe9u.cloudfront.net/shapes/arrow5.png" alt="">
+                            </div>
+                        </li>
+                        <li>
+                            <div class="thumb">
+                                <img src="https://d1csarkz8obe9u.cloudfront.net/shapes/arrow6.png" alt="">
+                            </div>
+                        </li>
+                        <li>
+                            <div class="thumb">
+                                <img src="https://d1csarkz8obe9u.cloudfront.net/shapes/speech.png" alt="">
+                            </div>
+                        </li>
+                        <li>
+                            <div class="thumb">
+                                <img src="https://d1csarkz8obe9u.cloudfront.net/shapes/speech12.png" alt="">
+                            </div>
+                        </li>
+                        <li>
+                            <div class="thumb">
+                                <img src="https://d1csarkz8obe9u.cloudfront.net/shapes/arrow8.png" alt="">
+                            </div>
+                        </li>
+                        <li>
+                            <div class="thumb">
+                                <img src="https://d1csarkz8obe9u.cloudfront.net/shapes/speech12.png" alt="">
+                            </div>
+                        </li>
+                        <li>
+                            <div class="thumb">
+                                <img src="https://d1csarkz8obe9u.cloudfront.net/shapes/arrow8.png" alt="">
+                            </div>
+                        </li>
+                        <li>
+                            <div class="thumb">
+                                <img src="./images/ic_checked.png" alt="">
+                            </div>
+                        </li>
+                        <li>
+                            <div class="thumb">
+                                <img src="./images/ic_unchecked.png" alt="">
+                            </div>
+                        </li>
+                           
+                    </ul>
+                    
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+     <!-- Upload Photo -->
+     <!-- <div class="clipart-wrapper animated  slideInLeft fast" id="uploadPhoto">
+            <div class="container-fluid" style="overflow: scroll;height: 93vh;">
+                <div class="row">
+                    <div class="col-md-12">
+                        <button class="btn btn-primary float-right" id="closePhotos" onclick="closePhotoDiv()">Close</button>
+                    </div>
+                    <hr>
+                    <div class="col-md-12">
+                        <div class="img-wrapper">
+                            <img id="blah" src="#" alt="your image" style="max-width: 100%"/>
+                        </div>
+                           
+                       <div class="photo-wrapper">
+                           
+                        <input class="btn btn-primary" type="file" value="UPLOAD PHOTOS" id="imgInp">
+                        <button class="btn btn-primary">ADD STOCK PHOTOS</button>
+                       </div>
+                    </div>
+                </div>
+            </div>
+    
+        </div> -->
+    <script src="main.js"></script>
+</body>
+</html>

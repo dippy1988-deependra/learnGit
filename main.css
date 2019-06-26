@@ -1,0 +1,26 @@
+.canvas {
+    text-align: center !important;
+    margin: 0 auto!important;
+    position: relative!important;
+    display: flex!important;
+    justify-content: center!important;
+}
+.border{
+    border:1px solid lightgray;
+    height: 100vh;
+}
+hr {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+  }
+  .show{
+      display: block;
+  }
+  .hidden{
+      display: none;
+  }
+  input[type="file"]{
+      display: none;
+  }
